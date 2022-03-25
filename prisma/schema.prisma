@@ -11,18 +11,23 @@ datasource db {
 }
 
 model User {
-  id            String      @id @default(uuid())
-  phoneNumber   String      @unique
-  username      String      @unique
-  createdAt     DateTime    @default(now())
+  id          String      @id @default(uuid())
+  phoneNumber String      @unique
+  username    String      @unique
+  createdAt   DateTime    @default(now())
+  // magicLink     MagicLink?  @relation(fields: [magicLinkId], references: [id])
+  // magicLinkId   String?
   // comments      UserComment[]
   // posts         UserPost[]
+  MagicCodes   MagicCode[]
 }
 
-model MagicLink {
-  id            String      @id @default(uuid())
-  url           String      @unique
-  createdAt     DateTime    @default(now())
+model MagicCode {
+  id        String   @id @default(uuid())
+  code      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 // model UserComment {

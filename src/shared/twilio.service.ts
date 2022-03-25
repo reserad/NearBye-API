@@ -6,11 +6,11 @@ class TwilioService {
         this.client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
     }
 
-    sendMessage = async (phoneNumber: string) => {
-        const response = await this.client.messages.create({
+    sendMessage = async (phoneNumber: string, magicCode: string) => {
+        return await this.client.messages.create({
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber,
-            body: 'howdy dude'
+            body: `Here is your NearBye login code: ${magicCode}`
         });
     }
 }
