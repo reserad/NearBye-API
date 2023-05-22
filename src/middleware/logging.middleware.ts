@@ -10,7 +10,7 @@ export class LoggerMiddleware implements NestMiddleware {
     const userAgent = request.get('user-agent') || '';
 
     const originalSend = response.send;
-    response.send = (data) => {
+    response.send = data => {
       let formattedData = data;
       try {
         formattedData = JSON.parse(data);
