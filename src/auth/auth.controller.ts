@@ -1,22 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Headers,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-  Response,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UserService } from 'src/user/user.service';
-import { Request } from 'express';
-import { OTPAuthGuard } from './otp-auth.guard';
-import { Public } from 'src/shared/public.decorator';
+import { Controller } from '@nestjs/common';
 
 export class LoginDto {
   phoneNumber: string;
