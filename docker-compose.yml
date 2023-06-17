@@ -1,18 +1,15 @@
-version: "3.1"
+version: '3.1'
 
 services:
-  mysql:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
-    ports:
-      - 3306:3306
+  near-bye-bff:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    env_file:
+      - .env
     volumes:
-      - mysql:/var/lib/mysql
-
-volumes:
-  mysql:
+      - .:/usr/src/app
+    command: npm run start:dev
+    ports:
+      - 3000:3000
