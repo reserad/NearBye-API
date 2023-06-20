@@ -1,5 +1,4 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { JwtPayloadType } from './types/jwt-payload-type';
 import { JwtStrategyPayload } from './types/jwt-strategy-payload-type';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
@@ -15,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayloadType): Promise<JwtStrategyPayload> {
+  async validate(payload: any): Promise<JwtStrategyPayload> {
     const { id, phoneNumber } = payload;
     return {
       id,

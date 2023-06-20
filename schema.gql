@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type EmptyAuthPayload {
+  success: Boolean!
+}
+
+type Mutation {
+  sendOtp(otpSendInput: OtpSendInput!): EmptyAuthPayload!
+  verifyOtp(otpVerifyInput: OtpVerifyInput!): OtpVerifyResult!
+}
+
+input OtpSendInput {
+  phoneNumber: String!
+}
+
+input OtpVerifyInput {
+  code: String!
+  phoneNumber: String!
+}
+
+type OtpVerifyResult {
+  token: String!
+}
+
+type Query {
+  userGet: User!
+}
+
+type User {
+  base_latitude: Float
+  base_longitude: Float
+  created_at: String!
+  id: String!
+  phone_number: String!
+}

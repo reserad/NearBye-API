@@ -1,5 +1,9 @@
 version: '3.1'
 
+networks:
+  proxynet:
+    name: near-bye-network
+
 services:
   near-bye-bff:
     build:
@@ -8,8 +12,11 @@ services:
       target: development
     env_file:
       - .env
+      - rsa-keys-dev/public.test.pem.env
     volumes:
       - .:/usr/src/app
     command: npm run start:dev
     ports:
       - 3000:3000
+    networks:
+      - proxynet
