@@ -4,7 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import { EmptyAuthPayload } from './types/empty-auth-payload.type';
 import { AxiosRequestConfig } from 'axios';
 import { OtpSendInput } from './types/otp-send.input';
-import { JwtToken } from './types/jwt-token-type';
 import { OtpVerifyResult } from './types/otp-verify-result.type';
 import { OtpVerifyInput } from './types/otp-verify.input';
 
@@ -34,5 +33,12 @@ export class AuthService {
       data: input,
     };
     return await this.apiService.post<OtpVerifyResult>(config);
+  }
+
+  async signOut(): Promise<void> {
+    const config: AxiosRequestConfig = {
+      url: `${this.endPoints.auth}/signout`,
+    };
+    await this.apiService.post<OtpVerifyResult>(config);
   }
 }

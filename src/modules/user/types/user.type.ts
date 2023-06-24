@@ -1,19 +1,19 @@
-import { Field, Int, Float, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
   @Field()
   id!: string;
 
-  @Field({ name: 'phone_number' })
+  @Field()
   phoneNumber!: string;
 
-  @Field({ nullable: true, name: 'base_latitude' })
+  @Field({ nullable: true })
   baseLatitude?: number;
 
-  @Field({ nullable: true, name: 'base_longitude' })
+  @Field({ nullable: true })
   baseLongitude?: number;
 
-  @Field({ name: 'created_at' })
+  @Field()
   createdAt!: string;
 }

@@ -29,9 +29,9 @@ type Query {
 }
 
 type User {
-  base_latitude: Float
-  base_longitude: Float
-  created_at: String!
+  baseLatitude: Float
+  baseLongitude: Float
+  createdAt: String!
   id: String!
-  phone_number: String!
+  phoneNumber: String!
 }
