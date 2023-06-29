@@ -1,5 +1,5 @@
 export type JwtUser = {
-  id: string;
+  userId: string;
   phoneNumber: string;
   token: string;
 };

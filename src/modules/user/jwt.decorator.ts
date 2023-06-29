@@ -6,9 +6,9 @@ export const Jwt = createParamDecorator(
   (data: unknown, context: ExecutionContext): JwtUser => {
     const ctx = GqlExecutionContext.create(context);
     const token = ctx.getContext().req.headers.authorization;
-    const { id, phoneNumber } = ctx.getContext().req.user;
+    const { userId, phoneNumber } = ctx.getContext().req.user;
     return {
-      id,
+      userId,
       phoneNumber,
       token,
     };

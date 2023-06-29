@@ -1,7 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { Body } from '@nestjs/common';
-import { GqlJwtGuard } from './gql-jwt.guard';
 import { EmptyAuthPayload } from './types/empty-auth-payload.type';
 import { OtpSendInputArgs } from './types/otp-send.input';
 import { OtpVerifyInputArgs } from './types/otp-verify.input';

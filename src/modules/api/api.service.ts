@@ -11,6 +11,7 @@ export class ApiService {
     url: string,
     jwtUser?: JwtUser,
     headers?: Record<string, string>,
+    data?: any,
   ) {
     const headersPayload = {
       ...headers,
@@ -25,6 +26,7 @@ export class ApiService {
         ...headersPayload,
       },
       url,
+      data,
     };
     const result = await firstValueFrom(this.httpService.request<T>(config));
     return result.data;

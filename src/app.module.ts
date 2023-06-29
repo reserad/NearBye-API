@@ -8,11 +8,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
+import { PostModule } from './modules/post/post.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    PostModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

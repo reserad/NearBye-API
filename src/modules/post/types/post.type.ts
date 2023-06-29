@@ -1,23 +1,23 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Proifle } from 'src/modules/profile/types/profile.type';
+import { User } from 'src/modules/user/types/user.type';
 
 @ObjectType()
-export class User {
+export class UserPost {
   @Field()
   id!: string;
 
   @Field()
-  phoneNumber!: string;
+  body!: string;
 
   @Field({ nullable: true })
-  baseLatitude?: number;
+  latitude?: number;
 
   @Field({ nullable: true })
-  baseLongitude?: number;
+  longitude?: number;
 
   @Field()
   createdAt!: string;
 
   @Field()
-  profile: Proifle;
+  author!: User;
 }
