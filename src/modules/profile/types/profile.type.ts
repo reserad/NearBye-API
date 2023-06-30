@@ -8,8 +8,8 @@ export class Proifle {
   @Field()
   userId!: string;
 
-  @Field()
-  profileImage!: string;
+  @Field({ nullable: true })
+  profileImage: string;
 
   @Field({ nullable: true })
   bio: string;

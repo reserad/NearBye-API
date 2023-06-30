@@ -41,7 +41,7 @@ type Proifle {
   bio: String
   id: String!
   name: String
-  profileImage: String!
+  profileImage: String
   userId: String!
 }
 
