@@ -9,11 +9,11 @@ export class Proifle {
   userId!: string;
 
   @Field({ nullable: true })
-  profileImage: string;
+  profileImage?: string;
 
   @Field({ nullable: true })
-  bio: string;
+  bio?: string;
 
   @Field({ nullable: true })
-  name: string;
+  name?: string;
 }

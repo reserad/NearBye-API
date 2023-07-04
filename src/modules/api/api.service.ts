@@ -2,17 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { JwtUser } from '../auth/types/jwt-user.type';
+import { RequestConfig } from './types/request-config.type';
 
 @Injectable()
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
-  async get<T>(
-    url: string,
-    jwtUser?: JwtUser,
-    headers?: Record<string, string>,
-    data?: any,
-  ) {
+  async get<T>({ url, data, headers, jwtUser }: RequestConfig) {
     const headersPayload = {
       ...headers,
     };
@@ -32,17 +27,22 @@ export class ApiService {
     return result.data;
   }
 
-  async post<T>({ url, headers, data = {} }: AxiosRequestConfig) {
+  async post<T>({ url, data, headers, jwtUser }: RequestConfig) {
+    const headersPayload = {
+      ...headers,
+    };
+    if (jwtUser) {
+      headersPayload['authorization'] = jwtUser.token;
+    }
     const options: AxiosRequestConfig = {
       method: 'POST',
-      url,
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
+        ...headersPayload,
       },
+      url,
       data,
     };
-    console.log(options);
     const result = await firstValueFrom(this.httpService.request<T>(options));
     return result.data;
   }
