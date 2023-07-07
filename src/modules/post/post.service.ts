@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ApiService } from '../api/api.service';
 import { ConfigService } from '@nestjs/config';
-import { UserPost } from './types/post.type';
+import { Post } from './types/post.type';
 import { JwtUser } from '../auth/types/jwt-user.type';
-import { PostGetAllInput } from './types/post-get-all.input';
+import { FeedGetInput } from './types/feed-get.input';
 import { PostCreateInput } from './types/post-create.input';
 import { RequestConfig } from '../api/types/request-config.type';
+import { FeedItem } from './types/feed-item.type';
 
 @Injectable()
 export class PostService {
@@ -18,27 +19,27 @@ export class PostService {
   private endPoints = {
     posts: `${this.baseUrl}/posts`,
   };
-  async getUserPosts(
+  async getFeed(
     jwtUser: JwtUser,
-    postGetAllInput: PostGetAllInput,
-  ): Promise<UserPost[]> {
+    feedGetInput: FeedGetInput,
+  ): Promise<FeedItem[]> {
     const config: RequestConfig = {
       url: this.endPoints.posts,
       jwtUser,
-      data: postGetAllInput,
+      data: feedGetInput,
     };
-    return await this.apiService.get<UserPost[]>(config);
+    return await this.apiService.get<FeedItem[]>(config);
   }
 
   async postCreate(
     jwtUser: JwtUser,
     postCreateInput: PostCreateInput,
-  ): Promise<UserPost> {
+  ): Promise<Post> {
     const config: RequestConfig = {
       url: this.endPoints.posts,
       jwtUser,
       data: postCreateInput,
     };
-    return await this.apiService.post<UserPost>(config);
+    return await this.apiService.post<Post>(config);
   }
 }

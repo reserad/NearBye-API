@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Proifle } from 'src/modules/profile/types/profile.type';
+import { Post } from 'src/modules/post/types/post.type';
+import { UserVote } from './user-vote.type';
 
 @ObjectType()
 export class User {
@@ -18,6 +19,15 @@ export class User {
   @Field()
   createdAt!: string;
 
-  @Field()
-  profile: Proifle;
+  @Field({ nullable: true })
+  profileImage?: string;
+
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field(() => [Post])
+  posts!: Post[];
+
+  @Field(() => [UserVote], { nullable: true })
+  userVotes?: UserVote[];
 }

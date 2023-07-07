@@ -3,25 +3,19 @@ import { User } from 'src/modules/user/types/user.type';
 import { Vote } from 'src/modules/vote/types/vote.type';
 
 @ObjectType()
-export class Post {
+export class UserVote {
   @Field()
   id!: string;
 
   @Field()
-  body!: string;
-
-  @Field({ nullable: true })
-  latitude?: number;
-
-  @Field({ nullable: true })
-  longitude?: number;
+  voteId!: string;
 
   @Field()
-  createdAt!: string;
+  authorId!: string;
 
   @Field(() => User)
   author!: User;
 
-  @Field(() => [Vote])
-  votes!: Vote[];
+  @Field(() => Vote)
+  vote!: Vote;
 }

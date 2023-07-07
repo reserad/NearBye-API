@@ -6,8 +6,27 @@ type EmptyAuthPayload {
   success: Boolean!
 }
 
+input FeedGetInput {
+  latitude: Float!
+  longitude: Float!
+  offset: Float!
+  take: Float!
+}
+
+type FeedItem {
+  authorId: String!
+  authorImage: String
+  authorName: String
+  body: String!
+  createdAt: String!
+  downvotes: Float!
+  id: String!
+  upvotes: Float!
+  userVoteStatus: VoteStatus!
+}
+
 type Mutation {
-  postCreate(postCreateInput: PostCreateInput!): UserPost!
+  postCreate(postCreateInput: PostCreateInput!): Post!
   sendOtp(otpSendInput: OtpSendInput!): EmptyAuthPayload!
   verifyOtp(otpVerifyInput: OtpVerifyInput!): OtpVerifyResult!
 }
@@ -33,6 +52,16 @@ type OtpVerifyUser {
   phoneNumber: String!
 }
 
+type Post {
+  author: User!
+  body: String!
+  createdAt: String!
+  id: String!
+  latitude: Float
+  longitude: Float
+  votes: [Vote!]!
+}
+
 input PostCreateInput {
   body: String!
   latitude: Float!
@@ -40,21 +69,8 @@ input PostCreateInput {
   userId: String!
 }
 
-input PostGetAllInput {
-  latitude: Float!
-  longitude: Float!
-}
-
-type Proifle {
-  bio: String
-  id: String!
-  name: String
-  profileImage: String
-  userId: String!
-}
-
 type Query {
-  postGetAll(postGetAllInput: PostGetAllInput!): [UserPost!]!
+  feedGet(feedGetInput: FeedGetInput!): [FeedItem!]!
   userGet: User!
 }
 
@@ -63,15 +79,32 @@ type User {
   baseLongitude: Float
   createdAt: String!
   id: String!
+  name: String
   phoneNumber: String!
-  profile: Proifle!
+  posts: [Post!]!
+  profileImage: String
+  userVotes: [UserVote!]
 }
 
-type UserPost {
+type UserVote {
   author: User!
-  body: String!
-  createdAt: String!
+  authorId: String!
   id: String!
-  latitude: Float
-  longitude: Float
+  vote: Vote!
+  voteId: String!
+}
+
+type Vote {
+  downvoted: Boolean
+  id: String!
+  postId: String!
+  upvoted: Boolean
+  userVote: UserVote!
+}
+
+"""Type of vote"""
+enum VoteStatus {
+  DOWNVOTED
+  NEITHER
+  UPVOTED
 }

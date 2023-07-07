@@ -54,26 +54,29 @@ export class AppModule implements OnModuleInit {
         return response;
       },
       function (err: AxiosError) {
-        switch (err.response.status) {
-          case HttpStatusCode.Unauthorized:
-            throw new AuthenticationError('Invalid JWT', {
-              originalError: err,
-              extensions: {
-                code: 'UNAUTHENTICATED',
-                statusCode: HttpStatusCode.Unauthorized,
-              },
-            });
-          case HttpStatusCode.NotFound:
-            throw new GraphQLError('err.message', {
-              originalError: err,
-              extensions: {
-                code: 'NOTFOUND',
-                statusCode: HttpStatusCode.NotFound,
-              },
-            });
-          default:
-            return err;
+        if (err.response && err.response.status) {
+          switch (err.response.status) {
+            case HttpStatusCode.Unauthorized:
+              throw new AuthenticationError('Invalid JWT', {
+                originalError: err,
+                extensions: {
+                  code: 'UNAUTHENTICATED',
+                  statusCode: HttpStatusCode.Unauthorized,
+                },
+              });
+            case HttpStatusCode.NotFound:
+              throw new GraphQLError('err.message', {
+                originalError: err,
+                extensions: {
+                  code: 'NOTFOUND',
+                  statusCode: HttpStatusCode.NotFound,
+                },
+              });
+            default:
+              return err;
+          }
         }
+        return err;
       },
     );
   }

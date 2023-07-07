@@ -1,32 +1,33 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PostService } from './post.service';
 import { UseGuards } from '@nestjs/common';
-import { UserPost } from './types/post.type';
+import { Post } from './types/post.type';
 import { GqlJwtGuard } from '../auth/gql-jwt.guard';
 import { JwtUser } from '../auth/types/jwt-user.type';
 import { Jwt } from '../user/jwt.decorator';
-import { PostGetAllInputArgs } from './types/post-get-all.input';
+import { FeedGetInputArgs } from './types/feed-get.input';
 import { PostCreateInputArgs } from './types/post-create.input';
+import { FeedItem } from './types/feed-item.type';
 
-@Resolver(() => UserPost)
+@Resolver(() => Post)
 export class PostResolver {
   constructor(private postService: PostService) {}
 
   @UseGuards(GqlJwtGuard)
-  @Query(() => [UserPost])
-  async postGetAll(
+  @Query(() => [FeedItem])
+  async feedGet(
     @Jwt() jwtUser: JwtUser,
-    @Args() { postGetAllInput }: PostGetAllInputArgs,
-  ): Promise<UserPost[]> {
-    return await this.postService.getUserPosts(jwtUser, postGetAllInput);
+    @Args() { feedGetInput }: FeedGetInputArgs,
+  ): Promise<FeedItem[]> {
+    return await this.postService.getFeed(jwtUser, feedGetInput);
   }
 
   @UseGuards(GqlJwtGuard)
-  @Mutation(() => UserPost)
+  @Mutation(() => Post)
   async postCreate(
     @Jwt() jwtUser: JwtUser,
     @Args() { postCreateInput }: PostCreateInputArgs,
-  ): Promise<UserPost> {
+  ): Promise<Post> {
     return await this.postService.postCreate(jwtUser, postCreateInput);
   }
 }
