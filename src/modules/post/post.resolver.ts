@@ -8,6 +8,8 @@ import { Jwt } from '../user/jwt.decorator';
 import { FeedGetInputArgs } from './types/feed-get.input';
 import { PostCreateInputArgs } from './types/post-create.input';
 import { FeedItem } from './types/feed-item.type';
+import { EmptyVoteResponse } from './types/empty-vote-response.type';
+import { PostVoteInputArgs } from './types/post-vote.input';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -29,5 +31,15 @@ export class PostResolver {
     @Args() { postCreateInput }: PostCreateInputArgs,
   ): Promise<Post> {
     return await this.postService.postCreate(jwtUser, postCreateInput);
+  }
+
+  @UseGuards(GqlJwtGuard)
+  @Mutation(() => EmptyVoteResponse)
+  async postVote(
+    @Jwt() jwtUser: JwtUser,
+    @Args() { postVoteInput }: PostVoteInputArgs,
+  ): Promise<EmptyVoteResponse> {
+    await this.postService.vote(jwtUser, postVoteInput);
+    return { success: true };
   }
 }

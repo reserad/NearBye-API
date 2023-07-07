@@ -8,5 +8,5 @@ export enum VoteStatus {
 
 registerEnumType(VoteStatus, {
   name: 'VoteStatus',
-  description: 'Type of vote',
+  description: 'If the user voted on the post what is the state?',
 });

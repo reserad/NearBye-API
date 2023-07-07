@@ -7,6 +7,7 @@ import { FeedGetInput } from './types/feed-get.input';
 import { PostCreateInput } from './types/post-create.input';
 import { RequestConfig } from '../api/types/request-config.type';
 import { FeedItem } from './types/feed-item.type';
+import { PostVoteInput } from './types/post-vote.input';
 
 @Injectable()
 export class PostService {
@@ -18,6 +19,7 @@ export class PostService {
 
   private endPoints = {
     posts: `${this.baseUrl}/posts`,
+    vote: `${this.baseUrl}/posts/vote`,
   };
   async getFeed(
     jwtUser: JwtUser,
@@ -39,6 +41,15 @@ export class PostService {
       url: this.endPoints.posts,
       jwtUser,
       data: postCreateInput,
+    };
+    return await this.apiService.post<Post>(config);
+  }
+
+  async vote(jwtUser: JwtUser, postVoteInput: PostVoteInput): Promise<Post> {
+    const config: RequestConfig = {
+      url: this.endPoints.vote,
+      jwtUser,
+      data: postVoteInput,
     };
     return await this.apiService.post<Post>(config);
   }

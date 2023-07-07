@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Post } from 'src/modules/post/types/post.type';
-import { UserVote } from './user-vote.type';
+import { Vote } from 'src/modules/vote/types/vote.type';
 
 @ObjectType()
 export class User {
@@ -28,6 +28,6 @@ export class User {
   @Field(() => [Post])
   posts!: Post[];
 
-  @Field(() => [UserVote], { nullable: true })
-  userVotes?: UserVote[];
+  @Field(() => [Vote])
+  votes!: Vote[];
 }

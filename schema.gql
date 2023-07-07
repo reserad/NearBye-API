@@ -6,6 +6,10 @@ type EmptyAuthPayload {
   success: Boolean!
 }
 
+type EmptyVoteResponse {
+  success: Boolean!
+}
+
 input FeedGetInput {
   latitude: Float!
   longitude: Float!
@@ -27,6 +31,7 @@ type FeedItem {
 
 type Mutation {
   postCreate(postCreateInput: PostCreateInput!): Post!
+  postVote(postVoteInput: PostVoteInput!): EmptyVoteResponse!
   sendOtp(otpSendInput: OtpSendInput!): EmptyAuthPayload!
   verifyOtp(otpVerifyInput: OtpVerifyInput!): OtpVerifyResult!
 }
@@ -69,6 +74,11 @@ input PostCreateInput {
   userId: String!
 }
 
+input PostVoteInput {
+  postId: String!
+  type: VoteType!
+}
+
 type Query {
   feedGet(feedGetInput: FeedGetInput!): [FeedItem!]!
   userGet: User!
@@ -83,15 +93,7 @@ type User {
   phoneNumber: String!
   posts: [Post!]!
   profileImage: String
-  userVotes: [UserVote!]
-}
-
-type UserVote {
-  author: User!
-  authorId: String!
-  id: String!
-  vote: Vote!
-  voteId: String!
+  votes: [Vote!]!
 }
 
 type Vote {
@@ -99,12 +101,18 @@ type Vote {
   id: String!
   postId: String!
   upvoted: Boolean
-  userVote: UserVote!
+  userId: String!
 }
 
-"""Type of vote"""
+"""If the user voted on the post what is the state?"""
 enum VoteStatus {
   DOWNVOTED
   NEITHER
   UPVOTED
+}
+
+"""Type of vote"""
+enum VoteType {
+  DOWNVOTE
+  UPVOTE
 }
