@@ -10,6 +10,7 @@ import { PostCreateInputArgs } from './types/post-create.input';
 import { FeedItem } from './types/feed-item.type';
 import { EmptyVoteResponse } from './types/empty-vote-response.type';
 import { PostVoteInputArgs } from './types/post-vote.input';
+import { PostGetInputArgs } from './types/post-get-input';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -22,6 +23,15 @@ export class PostResolver {
     @Args() { feedGetInput }: FeedGetInputArgs,
   ): Promise<FeedItem[]> {
     return await this.postService.getFeed(jwtUser, feedGetInput);
+  }
+
+  @UseGuards(GqlJwtGuard)
+  @Query(() => Post)
+  async postGet(
+    @Jwt() jwtUser: JwtUser,
+    @Args() { postGetInput }: PostGetInputArgs,
+  ): Promise<Post> {
+    return await this.postService.getPost(jwtUser, postGetInput);
   }
 
   @UseGuards(GqlJwtGuard)

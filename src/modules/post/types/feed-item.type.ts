@@ -30,4 +30,7 @@ export class FeedItem {
 
   @Field({ nullable: true })
   authorImage?: string;
+
+  @Field()
+  commentCount!: number;
 }

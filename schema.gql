@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  author: User!
+  authorId: String!
+  body: String!
+  createdAt: String!
+  id: String!
+  parentId: String
+}
+
 type EmptyAuthPayload {
   success: Boolean!
 }
@@ -22,6 +31,7 @@ type FeedItem {
   authorImage: String
   authorName: String
   body: String!
+  commentCount: Float!
   createdAt: String!
   downvotes: Float!
   id: String!
@@ -60,6 +70,7 @@ type OtpVerifyUser {
 type Post {
   author: User!
   body: String!
+  comments: [Comment!]!
   createdAt: String!
   id: String!
   latitude: Float
@@ -74,6 +85,10 @@ input PostCreateInput {
   userId: String!
 }
 
+input PostGetInput {
+  postId: String!
+}
+
 input PostVoteInput {
   postId: String!
   type: VoteType!
@@ -81,6 +96,7 @@ input PostVoteInput {
 
 type Query {
   feedGet(feedGetInput: FeedGetInput!): [FeedItem!]!
+  postGet(postGetInput: PostGetInput!): Post!
   userGet: User!
 }
 
