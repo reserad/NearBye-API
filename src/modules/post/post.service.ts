@@ -6,7 +6,7 @@ import { JwtUser } from '../auth/types/jwt-user.type';
 import { FeedGetInput } from './types/feed-get.input';
 import { PostCreateInput } from './types/post-create.input';
 import { RequestConfig } from '../api/types/request-config.type';
-import { FeedItem } from './types/feed-item.type';
+import { UserPost } from './types/user-post';
 import { PostVoteInput } from './types/post-vote.input';
 import { PostGetInput } from './types/post-get-input';
 
@@ -25,41 +25,44 @@ export class PostService {
   async getFeed(
     jwtUser: JwtUser,
     feedGetInput: FeedGetInput,
-  ): Promise<FeedItem[]> {
+  ): Promise<UserPost[]> {
     const config: RequestConfig = {
       url: this.endPoints.posts,
       jwtUser,
       data: feedGetInput,
     };
-    return await this.apiService.get<FeedItem[]>(config);
+    return await this.apiService.get<UserPost[]>(config);
   }
 
-  async getPost(jwtUser: JwtUser, postGetInput: PostGetInput): Promise<Post> {
+  async getPost(
+    jwtUser: JwtUser,
+    postGetInput: PostGetInput,
+  ): Promise<UserPost> {
     const config: RequestConfig = {
       url: `${this.endPoints.posts}/${postGetInput.postId}`,
       jwtUser,
     };
-    return await this.apiService.get<Post>(config);
+    return await this.apiService.get<UserPost>(config);
   }
 
   async postCreate(
     jwtUser: JwtUser,
     postCreateInput: PostCreateInput,
-  ): Promise<Post> {
+  ): Promise<UserPost> {
     const config: RequestConfig = {
       url: this.endPoints.posts,
       jwtUser,
       data: postCreateInput,
     };
-    return await this.apiService.post<Post>(config);
+    return await this.apiService.post<UserPost>(config);
   }
 
-  async vote(jwtUser: JwtUser, postVoteInput: PostVoteInput): Promise<Post> {
+  async vote(jwtUser: JwtUser, postVoteInput: PostVoteInput): Promise<void> {
     const config: RequestConfig = {
       url: this.endPoints.vote,
       jwtUser,
       data: postVoteInput,
     };
-    return await this.apiService.post<Post>(config);
+    await this.apiService.post<Post>(config);
   }
 }

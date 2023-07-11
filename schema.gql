@@ -26,19 +26,6 @@ input FeedGetInput {
   take: Float!
 }
 
-type FeedItem {
-  authorId: String!
-  authorImage: String
-  authorName: String
-  body: String!
-  commentCount: Float!
-  createdAt: String!
-  downvotes: Float!
-  id: String!
-  upvotes: Float!
-  userVoteStatus: VoteStatus!
-}
-
 type Mutation {
   postCreate(postCreateInput: PostCreateInput!): Post!
   postVote(postVoteInput: PostVoteInput!): EmptyVoteResponse!
@@ -95,8 +82,8 @@ input PostVoteInput {
 }
 
 type Query {
-  feedGet(feedGetInput: FeedGetInput!): [FeedItem!]!
-  postGet(postGetInput: PostGetInput!): Post!
+  feedGet(feedGetInput: FeedGetInput!): [UserPost!]!
+  postGet(postGetInput: PostGetInput!): UserPost!
   userGet: User!
 }
 
@@ -109,6 +96,18 @@ type User {
   phoneNumber: String!
   posts: [Post!]!
   profileImage: String
+  votes: [Vote!]!
+}
+
+type UserPost {
+  author: User!
+  authorId: String!
+  body: String!
+  comments: [Comment!]!
+  createdAt: String!
+  id: String!
+  score: Float!
+  userVoteStatus: VoteStatus!
   votes: [Vote!]!
 }
 

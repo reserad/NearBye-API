@@ -7,26 +7,26 @@ import { JwtUser } from '../auth/types/jwt-user.type';
 import { Jwt } from '../user/jwt.decorator';
 import { FeedGetInputArgs } from './types/feed-get.input';
 import { PostCreateInputArgs } from './types/post-create.input';
-import { FeedItem } from './types/feed-item.type';
 import { EmptyVoteResponse } from './types/empty-vote-response.type';
 import { PostVoteInputArgs } from './types/post-vote.input';
 import { PostGetInputArgs } from './types/post-get-input';
+import { UserPost } from './types/user-post';
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private postService: PostService) {}
 
   @UseGuards(GqlJwtGuard)
-  @Query(() => [FeedItem])
+  @Query(() => [UserPost])
   async feedGet(
     @Jwt() jwtUser: JwtUser,
     @Args() { feedGetInput }: FeedGetInputArgs,
-  ): Promise<FeedItem[]> {
+  ): Promise<UserPost[]> {
     return await this.postService.getFeed(jwtUser, feedGetInput);
   }
 
   @UseGuards(GqlJwtGuard)
-  @Query(() => Post)
+  @Query(() => UserPost)
   async postGet(
     @Jwt() jwtUser: JwtUser,
     @Args() { postGetInput }: PostGetInputArgs,
