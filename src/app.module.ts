@@ -1,9 +1,4 @@
-import {
-  Inject,
-  MiddlewareConsumer,
-  Module,
-  OnModuleInit,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { LoggerMiddleware } from './middleware/logging.middleware';
 import { UserModule } from './modules/user/user.module';
@@ -21,12 +16,14 @@ import { PostModule } from './modules/post/post.module';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 import { GraphQLError } from 'graphql';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
     PostModule,
+    CommentModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
