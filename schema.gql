@@ -6,7 +6,7 @@ type Comment {
   author: User!
   authorId: String!
   body: String!
-  children: [Comment!]!
+  children: [Comment!]
   createdAt: String!
   id: String!
   parent: Comment

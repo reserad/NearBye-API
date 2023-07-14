@@ -12,8 +12,8 @@ export class Comment {
   @Field(() => Comment, { nullable: true })
   parent?: Comment;
 
-  @Field(() => [Comment])
-  children!: Comment[];
+  @Field(() => [Comment], { nullable: true })
+  children?: Comment[];
 
   @Field()
   authorId!: string;
