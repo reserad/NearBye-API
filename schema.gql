@@ -36,6 +36,7 @@ type Mutation {
   postCreate(postCreateInput: PostCreateInput!): Post!
   postVote(postVoteInput: PostVoteInput!): EmptyVoteResponse!
   sendOtp(otpSendInput: OtpSendInput!): EmptyAuthPayload!
+  userUpdate(userUpdateInput: UserUpdateInput!): User!
   verifyOtp(otpVerifyInput: OtpVerifyInput!): OtpVerifyResult!
 }
 
@@ -116,6 +117,13 @@ type UserPost {
   score: Float!
   userVoteStatus: VoteStatus!
   votes: [Vote!]!
+}
+
+input UserUpdateInput {
+  baseLatitude: Float
+  baseLongitude: Float
+  name: String
+  profileImage: String
 }
 
 type Vote {

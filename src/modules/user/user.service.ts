@@ -5,6 +5,7 @@ import { User } from './types/user.type';
 import { JwtUser } from '../auth/types/jwt-user.type';
 import { RequestConfig } from '../api/types/request-config.type';
 import { OtpSendInput } from '../auth/types/otp-send.input';
+import { UserUpdateInput } from './types/user-update-input';
 
 @Injectable()
 export class UserService {
@@ -31,5 +32,14 @@ export class UserService {
       data: otpSendInput,
     };
     return await this.apiService.post<User>(config);
+  }
+
+  async update(jwtUser: JwtUser, userUpdateInput: UserUpdateInput) {
+    const config: RequestConfig = {
+      url: this.endPoints.users,
+      data: userUpdateInput,
+      jwtUser,
+    };
+    return await this.apiService.put<User>(config);
   }
 }

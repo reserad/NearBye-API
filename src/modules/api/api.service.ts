@@ -46,4 +46,24 @@ export class ApiService {
     const result = await firstValueFrom(this.httpService.request<T>(options));
     return result.data;
   }
+
+  async put<T>({ url, data, headers, jwtUser }: RequestConfig) {
+    const headersPayload = {
+      ...headers,
+    };
+    if (jwtUser) {
+      headersPayload['authorization'] = jwtUser.token;
+    }
+    const options: AxiosRequestConfig = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...headersPayload,
+      },
+      url,
+      data,
+    };
+    const result = await firstValueFrom(this.httpService.request<T>(options));
+    return result.data;
+  }
 }
