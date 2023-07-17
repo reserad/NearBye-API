@@ -17,6 +17,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 import { GraphQLError } from 'graphql';
 import { CommentModule } from './modules/comment/comment.module';
+import GraphQLJSON from 'graphql-type-json';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CommentModule } from './modules/comment/comment.module';
     LoggerModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      resolvers: { JSON: GraphQLJSON },
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
       sortSchema: true,
       context: ({ req }) => ({ req }),
